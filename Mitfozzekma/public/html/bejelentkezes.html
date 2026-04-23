@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bejelentkezés</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-md" style="background-color: #004d00; padding: 0.5rem 1rem;">
+    <div class="container-fluid"> <a class="navbar-brand" href="#">
+          <div style="width: 150%; height: 45px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f0e5c9;">
+            <img src="../kepek/logó.webp" alt="Mit Főzzek Ma logó" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+        </a> <button class="navbar-toggler"
+        type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"> <span
+          class="navbar-toggler-icon"></span> </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Főoldal</a></li>
+            <li class="nav-item"><a class="nav-link" href="konyham.html">Konyhám</a></li>
+            <li class="nav-item" id="receptjeimNavItem" style="display: none;"><a class="nav-link" href="receptjeim.html">Receptjeim</a></li>
+            <li class="nav-item" id="adminNavItem" style="display: none;"><a class="nav-link" href="admin.html">Admin</a></li>
+            <li class="nav-item"><a class="nav-link" href="elerhetoseg.html">Elérhetőség</a></li>
+          </ul>
+        <div class="d-flex align-items-center ms-auto">
+          <div class="d-flex align-items-center" style="gap: 8px; position: relative;">
+            <button id="userMenuToggle" class="btn btn-link nav-link p-0 profil-icon-btn" type="button" title="Bejelentkezés/Regisztráció">
+              <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background-color: #ffffff; display: flex; align-items: center; justify-content: center;">
+                <img src="../kepek/profil.png" alt="Profil" class="profil-icon" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            </button>
+            <button id="themeToggle" class="btn btn-link nav-link p-0" type="button" aria-pressed="false" title="Sötét mód váltása">🌙</button>
+            <div id="userMenuDropdown" class="user-menu-dropdown" style="display: none;" onclick="event.stopPropagation();">
+              <div id="userInfoSection" class="dropdown-section" style="display: none;">
+                <h6 class="dropdown-section-title">Profil</h6>
+                <div id="userInfo" class="mb-3">
+                  <p class="mb-1"><strong>Felhasználónév:</strong> <span id="displayUsername"></span></p>
+                  <p class="mb-1"><strong>Email:</strong> <span id="displayEmail"></span></p>
+                </div>
+                <div class="d-grid gap-2">
+                  <a href="receptjeim.html" class="btn btn-primary btn-sm">Receptjeim</a>
+                  <a href="admin.html" id="adminPanelButton" class="btn btn-warning btn-sm" style="display: none;">Admin felület</a>
+                  <button id="logoutBtn" class="btn btn-outline-danger btn-sm">Kijelentkezés</button>
+                </div>
+              </div>
+              
+              <div id="loginSection" class="dropdown-section">
+                <h6 class="dropdown-section-title">Bejelentkezés</h6>
+                <div id="loginErrorMsg" class="alert alert-danger d-none" style="font-size: 0.85rem; padding: 0.5rem;">
+                  Hibás felhasználónév vagy jelszó 
+                </div>
+                <form id="loginFormDropdown">
+                  <div class="mb-2">
+                    <label for="loginUsernameDropdown" class="form-label" style="font-size: 0.9rem;">Felhasználónév:</label>
+                    <input type="text" id="loginUsernameDropdown" class="form-control form-control-sm" required autocomplete="username" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="loginPasswordDropdown" class="form-label" style="font-size: 0.9rem;">Jelszó:</label>
+                    <input type="password" id="loginPasswordDropdown" class="form-control form-control-sm" required autocomplete="current-password" style="pointer-events: auto !important;">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-sm w-100 mb-2">Belépés</button>
+                </form>
+                <div class="text-center">
+                  <a href="#" id="switchToRegisterDropdown" class="btn btn-link btn-sm" style="font-size: 0.85rem; color: black;">Nincs még fiókod? Regisztrálj</a>
+                </div>
+              </div>
+              
+              <div id="registerSection" class="dropdown-section" style="display: none;">
+                <h6 class="dropdown-section-title">Regisztráció</h6>
+                <form id="registerFormDropdown">
+                  <div class="mb-2">
+                    <label for="registerUsernameDropdown" class="form-label" style="font-size: 0.9rem;">Felhasználónév:</label>
+                    <input type="text" id="registerUsernameDropdown" class="form-control form-control-sm" placeholder="Válassz egy felhasználónevet" required autocomplete="username" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="registerEmailDropdown" class="form-label" style="font-size: 0.9rem;">Email cím:</label>
+                    <input type="email" id="registerEmailDropdown" class="form-control form-control-sm" placeholder="Add meg az emailed" required autocomplete="email" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="registerPasswordDropdown" class="form-label" style="font-size: 0.9rem;">Jelszó:</label>
+                    <input type="password" id="registerPasswordDropdown" class="form-control form-control-sm" placeholder="Adj meg egy jelszót" required autocomplete="new-password" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="registerPassword2Dropdown" class="form-label" style="font-size: 0.9rem;">Jelszó újra:</label>
+                    <input type="password" id="registerPassword2Dropdown" class="form-control form-control-sm" placeholder="Írd be újra a jelszót" required autocomplete="new-password" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="registerProfilKepDropdown" class="form-label" style="font-size: 0.9rem;">Profilkép (opcionális):</label>
+                    <input type="file" id="registerProfilKepDropdown" class="form-control form-control-sm" accept="image/*" style="pointer-events: auto !important;">
+                    <small class="text-muted" style="font-size: 0.75rem;">JPG, PNG vagy WEBP, max. 500 KB</small>
+                  </div>
+                  <button type="submit" class="btn btn-success btn-sm w-100 mb-2">Regisztráció</button>
+                </form>
+                <div class="text-center">
+                  <a href="#" id="switchToLoginDropdown" class="btn btn-link btn-sm" style="font-size: 0.85rem; color: black;">Már van fiókod? Jelentkezz be</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </nav>
+
+<div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card shadow" style="max-width: 400px; width: 100%;">
+    <div class="card-body">
+      <h2 class="card-title mb-4 text-center">Bejelentkezés</h2>
+
+      <div id="errorMsg" class="alert alert-danger d-none">
+        Hibás felhasználónév vagy jelszó ❌
+      </div>
+
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="username" class="form-label">Felhasználónév:</label>
+          <input type="text" id="username" class="form-control" required>
+        </div>
+
+        <div class="mb-3 position-relative">
+          <label for="password" class="form-label">Jelszó:</label>
+          <div class="input-group">
+            <input type="password" id="password" class="form-control" required>
+            <button type="button" class="btn btn-outline-secondary" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Belépés</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <a href="index.html" class="btn btn-link" style="color:black;">Vissza a főoldalra</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("loginForm");
+  const errorMsg = document.getElementById("errorMsg");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const inputUsername = document.getElementById("username").value;
+    const inputPassword = document.getElementById("password").value;
+    errorMsg.classList.add("d-none");
+
+    fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: inputUsername, password: inputPassword })
+    })
+      .then(async function(r) {
+        const data = await r.json().catch(function() { return {}; });
+        if (!r.ok || !data.success) {
+          errorMsg.classList.remove("d-none");
+          return;
+        }
+        if (data.user) {
+          var user = data.user;
+          if (!user.profilKep) {
+            var stored = sessionStorage.getItem("profilKepElonezet");
+            if (stored) user.profilKep = stored;
+          }
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          
+          // Betöltjük a kedvelt recepteket az adatbázisból a localStorage-ba
+          if (user.favoriteRecipes && Array.isArray(user.favoriteRecipes)) {
+            localStorage.setItem("favoriteRecipes_" + user.username, JSON.stringify(user.favoriteRecipes));
+          }
+        }
+        window.location.href = "konyham.html";
+      })
+      .catch(function() {
+        errorMsg.classList.remove("d-none");
+      });
+  });
+
+  document.getElementById('togglePassword').addEventListener('click', function() {
+    const passwordField = document.getElementById('password');
+    const type = passwordField.type === 'password' ? 'text' : 'password';
+    passwordField.type = type;
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

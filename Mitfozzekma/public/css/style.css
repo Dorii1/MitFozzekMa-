@@ -1,0 +1,2024 @@
+/* ===== Variables & Base ===== */
+:root {
+  --bg-1: #81e696;
+  --bg-2: #000000;
+  --accent-1: #45d328;
+  --accent-2: #427c45;
+  --accent-3: #6BCB77;
+  --accent-4: #239248;
+  --accent-5: #1f8538;
+  --accent-6: #1fd346;
+  --muted: rgba(0, 0, 0, 0.75);
+  --glass: rgba(80, 197, 100, 0.75);
+  --text-primary: #1a3d1e;
+  --text-secondary: #4a5d4c;
+  --border-light: rgba(107, 203, 119, 0.2);
+  --shadow-sm: 0 2px 8px rgba(26, 61, 30, 0.08);
+  --shadow-md: 0 4px 16px rgba(26, 61, 30, 0.12);
+  --shadow-lg: 0 12px 32px rgba(26, 61, 30, 0.15);
+}
+ 
+/* ===== Alapbeállítások ===== */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, #d4f1de 0%, #c2e8d0 50%, #b8dfc8 100%);
+  color: var(--text-primary) !important;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  }
+ 
+/* Ensure all text elements inherit black color in light mode */
+h1, h2, h3, h4, h5, h6, p, span, a, li, label, input, button {
+  color: var(--text-primary) !important;
+}
+
+/* Dark mode text colors */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: #a8e6a0 !important;
+}
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode a,
+body.dark-mode li,
+body.dark-mode label,
+body.dark-mode button,
+body.dark-mode .card-title,
+body.dark-mode .card-text,
+body.dark-mode .badge,
+body.dark-mode .form-label {
+  color: #d0e6d0 !important;
+}
+ 
+/* ===== Hero ===== */
+.hero {
+  background: linear-gradient(120deg, rgba(25, 255, 4, 0.1) 0%, rgba(77, 150, 255, 0.08) 35%, rgba(107, 203, 119, 0.1) 70%, rgba(255, 140, 66, 0.08) 100%);
+  border-radius: 0 0 30px 30px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  padding: 3rem 0 2rem;
+}
+ 
+.hero .container {
+  max-width: 1100px
+}
+ 
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.4rem;
+  color: inherit;
+  font-size: 2.8rem;
+  line-height: 1.2;
+}
+ 
+.hero p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+ 
+.hero-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+}
+ 
+.hero-cta .btn-cta {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  background: linear-gradient(90deg, #2d5a32, #1a3d1e);
+  border: none;
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.8rem 1.4rem;
+  box-shadow: 0 8px 20px rgba(26, 61, 30, 0.25);
+  transition: all 0.3s ease;
+}
+ 
+.hero-cta .btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(26, 61, 30, 0.35);
+}
+ 
+/* ===== Navbar (glass) – sticky, mindig látható görgetéskor ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1050; /* Increased z-index to ensure visibility */
+  background-color: #ffffff; /* Ensure it has a background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+  color: white !important  ;;
+}
+ 
+.navbar-brand {
+  font-weight: 700;
+  color:white !important;
+  letter-spacing: 0.4px;
+  font-size: 1.3rem;
+}
+
+ 
+.nav-link {
+  color: white !important;
+}
+
+/* Ensure the theme toggle inside navbar is black */
+.navbar #themeToggle {
+  color: #000 !important;
+}
+
+/* Only the survey button text should be white */
+#openSurveyBtn {
+  color: #ffffff !important;
+}
+
+ 
+.nav-link:hover {
+  color: var(--accent-4) !important;
+  font-weight: 600;
+}
+ 
+/* ===== Result message ===== */
+#resultMsg {
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, rgba(77, 150, 255, 0.1), rgba(107, 203, 119, 0.1), rgba(255, 217, 61, 0.08));
+  color: #222;
+  border-left: 4px solid var(--accent-4);
+  box-shadow: 0 4px 12px rgba(77, 150, 255, 0.08);
+}
+ 
+/* ===== Cards ===== */
+.card {
+  position: relative;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  z-index: 1;
+}
+ 
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+ 
+.card .card-img-top,
+.card-media .card-img-top {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+ 
+ 
+.card-media {
+  height: 220px;
+  overflow: hidden;
+  display: block;
+  position: relative
+}
+ 
+.card-media .card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: auto !important;
+  display: block
+}
+ 
+@media (min-width:992px) {
+  .card-media {
+    height: 260px
+  }
+}
+ 
+@media (max-width:720px) {
+  .card-media {
+    height: 180px
+  }
+}
+ 
+.card-body {
+  text-align: center;
+  padding: 1.25rem;
+}
+ 
+.card-title {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+ 
+.card-text {
+  color: var(--text-secondary);
+  font-size: 0.95rem
+}
+ 
+/* subtle overlay gradient on image top */
+.card::before {
+  content: '';
+  position: absolute;
+  pointer-events: none
+}
+ 
+/* badges / chips */
+.badge {
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  display: inline-block;
+}
+ 
+.badge-soft {
+  background: rgba(45, 90, 50, 0.15);
+  color: var(--text-primary);
+  font-weight: 700;
+  border: 1px solid rgba(107, 203, 119, 0.3);
+  box-shadow: var(--shadow-sm);
+}
+ 
+.badge-accent {
+  background: linear-gradient(135deg, #81e696, #6BCB77);
+  color: var(--text-primary);
+  border: none;
+  box-shadow: 0 2px 6px rgba(107, 203, 119, 0.25);
+}
+ 
+.badge-muted {
+  background: rgba(107, 203, 119, 0.12);
+  color: var(--text-primary);
+  border: 1px solid rgba(107, 203, 119, 0.25);
+  font-weight: 700;
+}
+
+.badge-calorie {
+  background: rgba(255, 193, 7, 0.15);
+  color: #856404;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+ 
+/* ===== Modal ===== */
+.modal-content {
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(26, 61, 30, 0.2);
+  border: 1px solid var(--border-light);
+  overflow: visible;
+
+}
+ 
+.modal-header {
+  background: white;
+  border-bottom: 1px solid var(--border-light);
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 2px 8px rgba(26, 61, 30, 0.1);
+  
+}
+ 
+.modal-header .modal-title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+#surveyModal .modal-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #d1e7dd;
+}
+
+#surveyModal .modal-header {
+  background: linear-gradient(135deg, #5a9b65, #6bb878); 
+  border-bottom: 1px solid rgba(107, 203, 119, 0.4);
+  color: #ffffff; 
+}
+
+#surveyModal .modal-body {
+  background: rgba(90, 155, 101, 0.1); 
+  color: var(--text-primary); 
+}
+
+/* Ensuring text color remains light green in both light and dark modes */
+#surveyModal .modal-body .section-title,
+#surveyModal .modal-body .section-desc,
+#surveyModal .modal-body #clearAll,
+#surveyModal .modal-body .recipe-header-text,
+#surveyModal .modal-body .ingredient-category-header {
+  color: #a8e6a0 !important; /* Light green text color */
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+ 
+.modal-content h2 {
+  color: var(--text-primary);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+ 
+.modal-content p {
+  color: var(--text-secondary);
+}
+ 
+/* Nice inputs */
+.form-control:focus,
+.form-select:focus {
+  box-shadow: 0 0 0 3px rgba(107, 203, 119, 0.25);
+  border-color: #6BCB77;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid rgba(107, 203, 119, 0.35);
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+ 
+/* Allergy chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+ 
+.chip input {
+  display: none
+}
+ 
+.chip span {
+  display: inline-block;
+  padding: .45rem .75rem;
+  border-radius: 999px;
+  background: rgba(59, 184, 90, 0.507);
+  color: var(--muted);
+  border: 2px solid rgba(32, 131, 32, 0.3);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+ 
+.chip input:checked+span {
+  background: linear-gradient(90deg, #0ee932, #3a8f4f);
+  color: rgb(0, 0, 0);
+  border: none;
+  box-shadow: 0 6px 18px rgba(17, 88, 2, 0.3);
+  transform: scale(1.05);
+}
+ 
+/* Buttons in modal */
+.btn-outline-secondary {
+  border-radius: 10px;
+  padding: .5rem .9rem
+}
+
+/* Világosabb zöld a "Mutasd a javaslatokat" gombnak */
+#surveyModal .btn-primary {
+  background: linear-gradient(90deg, #5a9b65, #6bb878);
+  box-shadow: 0 6px 18px rgba(107, 203, 119, 0.35);
+}
+#surveyModal .btn-primary:hover {
+  background: linear-gradient(90deg, #6bb878, #7dc989);
+  box-shadow: 0 10px 28px rgba(107, 203, 119, 0.45);
+}
+ 
+.btn-primary.btn-lg {
+  padding: .65rem 1.2rem;
+  border-radius: 12px;
+}
+ 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(.98)
+  }
+ 
+  to {
+    opacity: 1;
+    transform: scale(1)
+  }
+}
+ 
+/* ===== Buttons ===== */
+.btn-primary {
+  background: linear-gradient(135deg, #2d5a32, #1a3d1e);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(26, 61, 30, 0.2);
+  padding: 0.6rem 1.1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+ 
+.btn-primary:hover {
+  background: linear-gradient(135deg, #3d7a42, #2d5a32);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(26, 61, 30, 0.3);
+  color: #fff;
+}
+ 
+.btn-secondary {
+  background: #6BCB77;
+  border: none;
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #5ab566;
+  transform: translateY(-2px);
+  color: var(--text-primary);
+}
+
+.btn-success {
+  background: #6BCB77;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(107, 203, 119, 0.2);
+  font-weight: 600;
+}
+
+.btn-success:hover {
+  background: #5ab566;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(107, 203, 119, 0.3);
+}
+ 
+/* Navbar icon container */
+.navbar .d-flex.align-items-center {
+  position: relative;
+}
+
+/* Profil ikon */
+.profil-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+#userMenuToggle .profil-icon {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center;
+}
+
+.profil-icon-btn {
+  padding: 4px !important;
+  line-height: 0;
+}
+
+/* User menu toggle and theme toggle buttons */
+#userMenuToggle,
+#themeToggle {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: none;
+  display: inline-grid;
+  place-items: center;
+  background: rgba(140, 192, 135, 0.9);
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(36, 37, 38, 0.06);
+  z-index: 1200;
+  font-size: 1.05rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+  margin: 0;
+}
+
+#userMenuToggle:hover,
+#themeToggle:hover {
+  transform: translateY(-2px);
+  background: rgba(140, 192, 135, 1);
+}
+
+body.dark-mode #userMenuToggle,
+body.dark-mode #themeToggle {
+  background: rgba(255, 255, 255, 0.247);
+  color: #000000;
+}
+
+/* User menu dropdown */
+.user-menu-dropdown {
+  position: fixed !important;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  min-width: 320px;
+  max-width: 400px;
+  width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 10000 !important;
+  padding: 16px;
+  animation: fadeInDropdown 0.2s ease;
+  pointer-events: auto !important;
+}
+
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-section {
+  width: 100%;
+}
+
+.dropdown-section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #70c67d;
+  margin-bottom: 12px;
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 2px solid rgba(140, 192, 135, 0.3);
+}
+
+.user-menu-dropdown .form-control-sm {
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(140, 192, 135, 0.3);
+  pointer-events: auto !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  position: relative;
+  z-index: 10000 !important;
+}
+
+.user-menu-dropdown input,
+.user-menu-dropdown textarea,
+.user-menu-dropdown select,
+.user-menu-dropdown button,
+.user-menu-dropdown label,
+.user-menu-dropdown form {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10001 !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+.user-menu-dropdown input:focus,
+.user-menu-dropdown textarea:focus,
+.user-menu-dropdown select:focus {
+  outline: 2px solid rgba(140, 192, 135, 0.8) !important;
+  outline-offset: 2px !important;
+  pointer-events: auto !important;
+}
+
+.user-menu-dropdown .form-control-sm:focus {
+  border-color: rgba(140, 192, 135, 0.8);
+  box-shadow: 0 0 0 0.15rem rgba(140, 192, 135, 0.25);
+}
+
+.user-menu-dropdown .btn-sm {
+  font-size: 0.9rem;
+  padding: 6px 12px;
+}
+
+.user-menu-dropdown .form-label {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+body.dark-mode .user-menu-dropdown {
+  background: #304630;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .dropdown-section-title {
+  color: #000000;
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .user-menu-dropdown .form-control-sm {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #000000;
+}
+
+body.dark-mode .user-menu-dropdown .form-control-sm:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(140, 192, 135, 0.6);
+  color: #000000;
+}
+
+body.dark-mode .user-menu-dropdown .form-label {
+  color: #000000;
+}
+
+/* Receptjeim oldal form stílusok */
+.card-header.bg-primary {
+  background: linear-gradient(90deg, #222c23, #2b4d30) !important;
+  color: white !important;
+}
+
+.card-header.bg-secondary {
+  background: linear-gradient(90deg, rgba(34, 41, 34, 0.85), rgba(50, 151, 55, 0.8)) !important;
+  color: white !important;
+}
+
+#ingredientsList .row {
+  margin-bottom: 0.5rem;
+}
+
+#ingredientsList .form-control-sm {
+  font-size: 0.9rem;
+}
+
+body.dark-mode .card-header.bg-primary,
+body.dark-mode .card-header.bg-secondary {
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.6), rgba(18, 18, 18, 0.35)) !important;
+  color: #000000 !important;
+}
+
+/* ===== Receptjeim oldal ===== */
+.page-receptjeim {
+  padding: 2rem 0 4rem;
+  min-height: 60vh;
+}
+
+.page-receptjeim .form-control,
+.page-receptjeim .form-select {
+  border-radius: 10px;
+  border-color: rgba(140, 192, 135, 0.5);
+}
+
+.page-receptjeim .form-control:focus,
+.page-receptjeim .form-select:focus {
+  border-color: #6BCB77;
+  box-shadow: 0 0 0 3px rgba(107, 203, 119, 0.25);
+}
+
+.page-receptjeim .container {
+  max-width: 900px;
+}
+
+.page-header-receptjeim {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem 0;
+}
+
+.page-header-receptjeim .page-title,
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a3d1e;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  font-size: 1.05rem;
+  color: #4a5d4c;
+  margin: 0;
+}
+
+/* Form kártya */
+.recipe-form-section {
+  margin-bottom: 2.5rem;
+}
+
+.recipe-form-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(26, 61, 30, 0.12);
+  border: 1px solid rgba(107, 203, 119, 0.2);
+}
+
+.section-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a3d1e;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(107, 203, 119, 0.4);
+}
+
+/* Form blokkok */
+.form-block {
+  margin-bottom: 2rem;
+}
+
+.form-block:last-of-type {
+  margin-bottom: 0;
+}
+
+.form-block-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2b4d30;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.35rem;
+}
+
+.form-hint {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.required {
+  color: #dc3545;
+}
+
+/* Hozzávalók */
+.form-block-toolbar {
+  margin-bottom: 0.75rem;
+}
+
+.btn-add-ingredient {
+  background: linear-gradient(135deg, #4dab56, #3d8b44);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-add-ingredient:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(77, 171, 86, 0.4);
+  color: #fff;
+}
+
+/* Lépések */
+.btn-add-step {
+  background: linear-gradient(135deg, #4dab56, #3d8b44);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-add-step:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(77, 171, 86, 0.4);
+  color: #fff;
+}
+
+.steps-list {
+  margin-bottom: 0.5rem;
+}
+
+.step-item {
+  background: #f8faf8;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(140, 192, 135, 0.35);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.step-item:hover {
+  border-color: rgba(107, 203, 119, 0.5);
+  box-shadow: 0 2px 8px rgba(107, 203, 119, 0.15);
+}
+
+.step-label {
+  font-weight: 600;
+  color: #2b4d30;
+  min-width: 5.5em;
+  padding-top: 0.4rem;
+  white-space: nowrap;
+}
+
+.step-input {
+  border-radius: 8px;
+  border-color: rgba(140, 192, 135, 0.5);
+}
+
+.btn-remove-step {
+  padding: 0.35rem 0.5rem;
+}
+
+.ingredients-list {
+  margin-bottom: 0.5rem;
+}
+
+.ingredient-item {
+  background: #f8faf8;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(140, 192, 135, 0.35);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ingredient-item:hover {
+  border-color: rgba(107, 203, 119, 0.5);
+  box-shadow: 0 2px 8px rgba(107, 203, 119, 0.15);
+}
+
+.ingredient-unit {
+  border-radius: 8px;
+  border-color: rgba(140, 192, 135, 0.5);
+  font-size: 0.9rem;
+}
+
+/* Textarea */
+.form-control-steps {
+  resize: vertical;
+  min-height: 140px;
+  border-radius: 10px;
+  border: 1px solid rgba(140, 192, 135, 0.4);
+}
+
+.form-control-steps:focus {
+  border-color: #6BCB77;
+  box-shadow: 0 0 0 3px rgba(107, 203, 119, 0.25);
+}
+
+/* Submit */
+.form-block-submit {
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.btn-submit-recipe {
+  background: linear-gradient(135deg, #2d5a32, #1a3d1e);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-submit-recipe:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 61, 30, 0.35);
+  color: #fff;
+}
+
+/* Kép előnézet */
+.image-preview-container {
+  margin-top: 0.5rem;
+  text-align: center;
+  min-height: 60px;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Mentett receptek szekció */
+.saved-recipes-section {
+  margin-bottom: 2.5rem;
+}
+
+.saved-recipes-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(26, 61, 30, 0.12);
+  border: 1px solid rgba(107, 203, 119, 0.2);
+}
+
+.saved-recipes-header {
+  background: linear-gradient(135deg, #2d5a32, #1a3d1e);
+  color: #fff;
+  padding: 1.25rem 1.5rem;
+}
+
+.saved-recipes-header .section-title {
+  color: #fff;
+  margin-bottom: 0.35rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  font-size: 1.2rem;
+}
+
+.section-desc {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.saved-recipes-body {
+  background: #fafcf9;
+  padding: 1.5rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(107, 203, 119, 0.08);
+  border-radius: 12px;
+  border: 1px dashed rgba(107, 203, 119, 0.4);
+}
+
+.empty-state p {
+  margin: 0;
+  color: #4a5d4c;
+}
+
+.empty-state a {
+  color: #2d5a32;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.empty-state a:hover {
+  color: #1a3d1e;
+}
+
+/* Régi osztályok kompatibilitás */
+.recipe-form-section h2 {
+  color: #2b4d30;
+  font-weight: 700;
+}
+
+.recipe-form-section h5 {
+  color: #2b4d30;
+  font-weight: 600;
+}
+
+/* Dark mode – Receptjeim oldal */
+body.dark-mode .page-title,
+body.dark-mode .page-subtitle {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+body.dark-mode .page-subtitle {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+body.dark-mode .recipe-form-card {
+  background: rgba(30, 45, 35, 0.9);
+  border-color: rgba(107, 203, 119, 0.2);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .section-title,
+body.dark-mode .form-block-title,
+body.dark-mode .recipe-form-section h2,
+body.dark-mode .recipe-form-section h5 {
+  color: #a8e6a0 !important;
+}
+
+body.dark-mode .form-label {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+body.dark-mode .form-hint {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+body.dark-mode .ingredient-item {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(107, 203, 119, 0.3);
+  color: #fff !important;
+}
+
+body.dark-mode .step-item {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(107, 203, 119, 0.3);
+}
+
+body.dark-mode .step-label {
+  color: #a8e6a0 !important;
+}
+
+body.dark-mode .saved-recipes-body {
+  background: rgba(30, 45, 35, 0.6);
+  color: #fff !important;
+}
+
+body.dark-mode .saved-recipes-header {
+  background: linear-gradient(135deg, #1a2e1f, #0f1a12) !important;
+  color: #fff !important;
+}
+
+body.dark-mode .saved-recipes-header .section-title {
+  color: #fff !important;
+}
+
+body.dark-mode .saved-recipes-header .section-desc {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.dark-mode .empty-state {
+  background: rgba(107, 203, 119, 0.1);
+  border-color: rgba(107, 203, 119, 0.35);
+}
+
+body.dark-mode .empty-state p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+body.dark-mode .empty-state a {
+  color: #8de88d !important;
+}
+
+@media (max-width: 768px) {
+  .page-receptjeim {
+    padding: 1rem 0 3rem;
+  }
+
+  .recipe-form-card {
+    padding: 1.25rem;
+  }
+
+  .page-title {
+    font-size: 1.6rem;
+  }
+
+  .saved-recipes-body {
+    padding: 1rem;
+  }
+}
+
+@media (max-width:720px) {
+  #userMenuToggle,
+  #themeToggle {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+  
+  .user-menu-dropdown {
+    min-width: 280px;
+    max-width: calc(100vw - 24px);
+  }
+}
+ 
+/* ===== Dark mode tweaks ===== */
+body.dark-mode {
+  background: linear-gradient(180deg, #1a3d2e 0%, #0f2f23 100%);
+  color: #e0f2e0;
+}
+ 
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: #a8e6a0 !important;
+}
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode a,
+body.dark-mode li,
+body.dark-mode label,
+body.dark-mode input,
+body.dark-mode button {
+  color: #d0e6d0 !important;
+}
+ 
+body.dark-mode .hero {
+  background: linear-gradient(120deg, rgba(45, 90, 50, 0.3) 0%, rgba(30, 70, 40, 0.25) 100%);
+}
+
+body.dark-mode .hero h1,
+body.dark-mode .hero p {
+  color: #e0f2e0;
+}
+ 
+body.dark-mode .navbar {
+  background: linear-gradient(90deg, rgba(15, 26, 19, 0.95), rgba(20, 35, 25, 0.95));
+}
+ 
+body.dark-mode .card {
+  background: #243d2e;
+  color: #e0f2e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  border-color: rgba(107, 203, 119, 0.25);
+}
+
+body.dark-mode .card-title,
+body.dark-mode .card-text {
+  color: #c8e6c8 !important;
+}
+ 
+body.dark-mode .card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .badge-soft {
+  background: rgba(107, 203, 119, 0.2);
+  border-color: rgba(107, 203, 119, 0.35);
+}
+ 
+body.dark-mode .badge-accent {
+  background: rgba(107, 203, 119, 0.25);
+  color: #f0f5f0;
+}
+
+body.dark-mode .badge {
+  background: rgba(107, 203, 119, 0.2);
+  color: #ffffff;
+  border-color: rgba(107, 203, 119, 0.35);
+}
+
+body.dark-mode .modal-content {
+  background: #1f2f24;
+  border-color: rgba(107, 203, 119, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .modal-header {
+  background: linear-gradient(135deg, #1a2620, #0f1a13);
+  border-bottom-color: rgba(107, 203, 119, 0.15);
+}
+
+body.dark-mode .modal-header .modal-title {
+  color: #a8e6a0;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(107, 203, 119, 0.25);
+  color: #ffffff;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #6BCB77;
+  color: #ffffff;
+}
+
+body.dark-mode .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark-mode input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Dark mode adjustments for form-select and form-select-lg */
+body.dark-mode .form-select,
+body.dark-mode .form-select-lg {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  color: #e0f2e0 !important;
+  border: 1px solid rgba(107, 203, 119, 0.25);
+}
+
+body.dark-mode .form-select:focus,
+body.dark-mode .form-select-lg:focus {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: #6BCB77;
+  color: #ffffff !important;
+}
+
+/* Fix for dark mode: Ensure text and background contrast in recipe modal */
+body.dark-mode .recipe-modal-img-wrapper {
+  background: rgba(30, 45, 35, 0.9);
+}
+
+body.dark-mode .recipe-modal-meta {
+  background: rgba(30, 45, 35, 0.9);
+  color: #a8e6a0 !important;
+}
+
+body.dark-mode #recipeModalIngredients,
+body.dark-mode #recipeModalSteps {
+  background: rgba(30, 45, 35, 0.9);
+  color: #e0f2e0 !important;
+  border-radius: 8px;
+  padding: 1rem;
+}
+ 
+/* Dark mode adjustments for dropdowns and collapsible sections */
+body.dark-mode .dropdown-menu,
+body.dark-mode .collapse,
+body.dark-mode .accordion-body {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  color: #e0f2e0 !important;
+  border: 1px solid rgba(107, 203, 119, 0.25);
+}
+
+body.dark-mode .dropdown-item,
+body.dark-mode .accordion-item {
+  background-color: transparent;
+  color: #e0f2e0 !important;
+}
+
+body.dark-mode .dropdown-item:hover,
+body.dark-mode .accordion-item:hover {
+  background-color: rgba(107, 203, 119, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Dark mode adjustments for the entire recipe modal and favorite section */
+body.dark-mode .save-btn {
+  background: rgba(30, 45, 35, 0.9) !important;
+  color: #a8e6a0 !important;
+  border: 1px solid rgba(107, 203, 119, 0.4);
+}
+
+body.dark-mode .save-btn:hover {
+  background: rgba(107, 203, 119, 0.2) !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .recipe-modal-img-wrapper,
+body.dark-mode .recipe-modal-meta,
+body.dark-mode #recipeModalIngredients,
+body.dark-mode #recipeModalSteps {
+  background: rgba(30, 45, 35, 0.9) !important;
+  color: #e0f2e0 !important;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+body.dark-mode .recipe-modal-meta {
+  border: 1px solid rgba(107, 203, 119, 0.4);
+}
+
+body.dark-mode .recipe-modal-img-wrapper img {
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .recipe-modal-meta,
+body.dark-mode .recipe-modal-meta h5,
+body.dark-mode .recipe-modal-meta p {
+  color: #a8e6a0 !important;
+}
+
+/* Dark mode adjustments for the survey form */
+body.dark-mode #surveyForm {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  color: #e0f2e0 !important;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+body.dark-mode #surveyForm label,
+body.dark-mode #surveyForm input,
+body.dark-mode #surveyForm select {
+  color: #e0f2e0 !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(107, 203, 119, 0.25);
+}
+
+body.dark-mode #surveyForm input:focus,
+body.dark-mode #surveyForm select:focus {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: #6BCB77;
+}
+
+/* Dark mode adjustments for the dropdown in the survey form */
+body.dark-mode #surveyForm select {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  color: #e0f2e0 !important;
+  border: 1px solid rgba(107, 203, 119, 0.25);
+}
+
+body.dark-mode #surveyForm select:focus {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: #6BCB77;
+  color: #ffffff !important;
+}
+
+/* Dark mode adjustments for the "Megnézem" button */
+body.dark-mode .view-recipe-btn {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  border: 1px solid rgba(107, 203, 119, 0.4) !important;
+  color: #a8e6a0 !important;
+}
+
+body.dark-mode .view-recipe-btn:hover {
+  background-color: rgba(107, 203, 119, 0.2) !important;
+  border-color: rgba(107, 203, 119, 0.6) !important;
+  color: #ffffff !important;
+}
+
+/* Dark mode adjustments for list-group-item */
+body.dark-mode .list-group-item {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  color: #e0f2e0 !important;
+  border: 1px solid rgba(107, 203, 119, 0.25);
+}
+
+body.dark-mode .list-group-item:hover {
+  background-color: rgba(107, 203, 119, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Dark mode adjustments for btn btn-sm */
+body.dark-mode .btn.btn-sm {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  color: #a8e6a0 !important;
+  border: 1px solid rgba(107, 203, 119, 0.4);
+}
+
+body.dark-mode .btn.btn-sm:hover {
+  background-color: rgba(107, 203, 119, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Dark mode adjustments for the meal selection dropdown */
+body.dark-mode #meal {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  color: #e0f2e0 !important;
+  border: 1px solid rgba(107, 203, 119, 0.25);
+}
+
+body.dark-mode #meal:focus {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: #6BCB77;
+  color: #ffffff !important;
+}
+
+body.dark-mode #meal option {
+  background-color: rgba(30, 45, 35, 0.9) !important;
+  color: #e0f2e0 !important;
+}
+
+/* ===== Minor responsive tweaks ===== */
+@media (max-width:720px) {
+  .hero h1 {
+    font-size: 1.6rem
+  }
+ 
+  .card .card-img-top,
+  .card-media .card-img-top {
+    aspect-ratio: 4/3
+  }
+}
+ 
+/* ===== Standout: save button, preview overlay, tilt ===== */
+.card {
+  perspective: 1200px
+}
+ 
+.card .card-media {
+  transform-style: preserve-3d
+}
+ 
+.card:hover .card-media {
+  transform: translateZ(0)
+}
+ 
+/* szív button */
+.save-btn {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  background: rgba(247, 247, 247, 0.92);
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: inline-grid;
+  place-items: center;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease
+}
+ 
+/* szív button */
+.save-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12)
+}
+ 
+/* szív button */
+.save-btn.saved {
+  background: linear-gradient(90deg, #ffffff);
+  color: rgb(248, 0, 0);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  animation: pulse-save 0.5s ease;
+}
+ 
+@keyframes pulse-save {
+  0% {
+    transform: scale(1);
+  }
+ 
+  50% {
+    transform: scale(1.15);
+  }
+ 
+  100% {
+    transform: scale(1.08);
+  }
+}
+ 
+.preview {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(156, 87, 87, 0), rgba(0, 0, 0, 0.55));
+  color: white;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: all .28s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none
+}
+ 
+/* show preview only on hover-capable devices to avoid duplication on touch */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .preview {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto
+  }
+}
+ 
+.preview p {
+  margin: 0;
+  font-size: .92rem;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6)
+}
+ 
+.preview .btn {
+  background: rgba(255, 255, 255, 0.95);
+  color: #222;
+  border-radius: 10px;
+  padding: .35rem .6rem;
+  font-weight: 700
+}
+ 
+.recipe-card-actions .recipe-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.recipe-card-actions .recipe-action-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+}
+
+@media (max-width:720px) {
+  .save-btn {
+    left: 8px;
+    top: 8px;
+    width: 36px;
+    height: 36px
+  }
+ 
+  .ribbon {
+    right: 8px;
+    top: 8px
+  }
+ 
+  .meta-overlay {
+    left: 8px;
+    bottom: 8px
+  }
+}
+ 
+/* highlight when preview button used */
+.card.highlight {
+  transform: scale(1.02) translateY(-6px);
+  box-shadow: 0 30px 60px rgba(67, 170, 84, 0.747);
+  z-index: 5
+}
+ 
+/*Elérhetőség*/
+/* ===== Contact form layout improvement ===== */
+.contact-card {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem !important;
+}
+ 
+.contact-form label {
+    font-weight: 600;
+    color: #2a402c;
+}
+ 
+.contact-form .form-control {
+    border-radius: 10px;
+    padding: 0.6rem 0.9rem;
+    border: 2px solid rgba(60, 130, 70, 0.25);
+    transition: 0.3s ease;
+}
+ 
+.contact-form .form-control:focus {
+    border-color: var(--accent-4);
+    box-shadow: 0 0 10px rgba(50, 180, 70, 0.3);
+}
+ 
+/* Card extra visual tweaks */
+.contact-card {
+    background: #ffffffee;
+    border-left: 5px solid var(--accent-4);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Konyhám oldal ===== */
+.page-konyham {
+  padding: 2rem 0 4rem;
+  min-height: 60vh;
+  background: linear-gradient(180deg, #c2e8d0 0%, #b8dfc8 50%, #ade8c1 100%);
+}
+
+.page-konyham .container {
+  max-width: 1100px;
+}
+
+.page-header-konyham {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem 0;
+}
+
+.page-header-konyham .page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a3d1e;
+  margin-bottom: 0.5rem;
+}
+
+.page-header-konyham .page-subtitle {
+  font-size: 1.05rem;
+  color: #4a5d4c;
+  margin: 0;
+}
+
+.konyham-section {
+  margin-bottom: 2.5rem;
+}
+
+.page-konyham .section-card {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(26, 61, 30, 0.08);
+  border: 1px solid rgba(107, 203, 119, 0.15);
+  background: #fff;
+}
+
+.section-card-header {
+  background: linear-gradient(135deg, #2d5a32, #1a3d1e);
+  color: #fff;
+  padding: 1.25rem 1.5rem;
+  position: relative;
+}
+
+.section-card-header .section-title {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 0.35rem;
+  padding-bottom: 0;
+  border: none;
+}
+
+.section-card-header .section-desc {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.btn-clear-all {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-clear-all:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.page-konyham .section-card-body {
+  background: #fff;
+  padding: 1.5rem;
+}
+
+.search-wrapper {
+  margin-bottom: 1rem;
+}
+
+.konyham-search {
+  border-radius: 10px;
+  border-color: rgba(140, 192, 135, 0.5);
+}
+
+.konyham-search:focus {
+  border-color: #6BCB77;
+  box-shadow: 0 0 0 3px rgba(107, 203, 119, 0.25);
+}
+
+.ingredient-categories-list {
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+.ingredient-category-block {
+  margin-bottom: 1.25rem;
+}
+
+.ingredient-category-header {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2b4d30;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 2px solid rgba(107, 203, 119, 0.35);
+}
+
+.ingredient-category-body {
+  padding: 0.25rem 0;
+}
+
+.ingredient-checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 6px;
+  background: #f8faf8;
+  border: 1px solid rgba(140, 192, 135, 0.15);
+  transition: background 0.15s;
+}
+
+.ingredient-checkbox-wrap:hover {
+  background: #f0f5f0;
+}
+
+.selected-ingredients-card {
+  background: #fafcf9;
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid rgba(140, 192, 135, 0.2);
+  height: 100%;
+}
+
+.selected-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2b4d30;
+  margin-bottom: 0.75rem;
+}
+
+.selected-ingredients {
+  max-height: 320px;
+  overflow-y: auto;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(140, 192, 135, 0.15);
+}
+
+.selected-ingredients .list-group-item {
+  border-radius: 8px;
+  margin-bottom: 0.35rem;
+  border: none;
+  background: #f8faf8;
+  padding: 0.6rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.2s;
+}
+
+.selected-ingredients .list-group-item:hover {
+  background: #f0f5f0;
+}
+
+.selected-ingredients .btn-outline-danger {
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  border-color: rgba(220, 53, 69, 0.4);
+  color: #c82333;
+}
+
+.selected-ingredients .btn-outline-danger:hover {
+  background: rgba(220, 53, 69, 0.08);
+  border-color: #dc3545;
+}
+
+.selected-hint {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.recipe-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.recipe-header-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn-filter {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-filter:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.btn-filter-active {
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a3d1e;
+  border-color: transparent;
+}
+
+.btn-filter-active:hover {
+  background: #fff;
+  color: #1a3d1e;
+}
+
+.stats-box {
+  background: linear-gradient(135deg, #4dab56, #3d8b44);
+  color: #fff;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.stats-number {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.stats-label {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.recipe-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.recipe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(26, 61, 30, 0.15);
+}
+
+.recipe-card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.badge-cookable {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
+}
+
+.filter-buttons .btn.active,
+.filter-buttons .btn-success.active,
+.btn-filter.active,
+.btn-filter-active {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #1a3d1e !important;
+  border-color: transparent !important;
+}
+
+.ingredient-section,
+.recipe-section {
+  background: transparent;
+}
+
+@media (max-width: 768px) {
+  .page-konyham {
+    padding: 1rem 0 3rem;
+  }
+  .section-card-body {
+    padding: 1rem;
+  }
+  .section-card-header {
+    padding-bottom: 2.5rem;
+  }
+  .btn-clear-all {
+    position: static;
+    display: block;
+    margin-top: 0.75rem;
+  }
+  .recipe-header {
+    flex-direction: column;
+  }
+}
+
+body.dark-mode .page-konyham {
+  background: transparent;
+}
+
+body.dark-mode .page-header-konyham .page-title {
+  color: #a8e6a0 !important;
+}
+body.dark-mode .page-header-konyham .page-subtitle {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+body.dark-mode .section-card {
+  border-color: rgba(107, 203, 119, 0.2);
+}
+body.dark-mode .section-card-body {
+  background: rgba(30, 45, 35, 0.6);
+}
+body.dark-mode .selected-ingredients-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(107, 203, 119, 0.25);
+}
+body.dark-mode .selected-ingredients {
+  background: rgba(0, 0, 0, 0.2);
+}
+body.dark-mode .selected-ingredients .list-group-item {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .ingredient-category-header {
+  color: #a8e6a0 !important;
+  border-color: rgba(107, 203, 119, 0.4);
+}
+
+body.dark-mode .ingredient-checkbox-wrap {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(107, 203, 119, 0.2);
+}
+
+body.dark-mode .ingredient-checkbox-wrap:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.badge-calorie {
+  background: rgba(255, 193, 7, 0.25);
+  color: #856404;
+}
+
+.recipe-modal-meta {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* Recept modal – kép formázása (Megnézem) – index, Konyhám, Receptjeim */
+.recipe-modal-img-wrapper {
+  margin: -0.5rem 0 1.25rem;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0f7f1 0%, #e8f5eb 100%);
+  min-height: 0;
+  box-shadow: 0 6px 20px rgba(26, 61, 30, 0.15);
+  transition: all 0.3s ease;
+}
+
+.recipe-modal-img-wrapper:has(img.d-none) {
+  display: none;
+}
+
+.recipe-modal-img-wrapper img:not(.d-none) {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.recipe-modal-img-wrapper:hover img:not(.d-none) {
+  transform: scale(1.02);
+}
+
+body.dark-mode .recipe-modal-img-wrapper {
+  background: linear-gradient(135deg, rgba(20, 40, 25, 0.6) 0%, rgba(15, 35, 20, 0.6) 100%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .recipe-modal-img-wrapper img:not(.d-none) {
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Megnézem gomb stílusa - halvány zöld alapállapotban, sötétebb zöld hover esetén */
+.view-recipe-btn {
+  background-color: #d1e7dd !important;
+  border: 1px solid #badbcc !important;
+  border-radius: 4px;
+  color: #0f5132 !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.view-recipe-btn:hover {
+  background-color: #28a745 !important;
+  border-color: #1e7e34 !important;
+  color: white !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.view-recipe-btn:active {
+  background-color: #218838 !important;
+  border-color: #1c7430 !important;
+  color: white !important;
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode adjustments for Konyham page */
+body.dark-mode .view-recipe-btn {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(107, 203, 119, 0.4) !important;
+  color: #000000 !important;
+}
+
+body.dark-mode .view-recipe-btn:hover {
+  background-color: rgba(107, 203, 119, 0.2) !important;
+  border-color: rgba(107, 203, 119, 0.6) !important;
+  color: #000000 !important;
+}
+
+body.dark-mode .recipe-modal-meta {
+  color: #000000 !important;
+}
+

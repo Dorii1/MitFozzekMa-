@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MitFozzekMa</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="../kepek/logó.webp">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md" style="background-color: #004d00; padding: 0.5rem 1rem;">
+    <div class="container-fluid"> <a class="navbar-brand" href="#">
+          <div style="width: 150%; height: 45px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f0e5c9;">
+            <img src="../kepek/logó.webp" alt="Mit Főzzek Ma logó" style="width: 100%; height: 100%; object-fit: contain;">
+          </div>
+        </a> <button class="navbar-toggler"
+        type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"> <span
+          class="navbar-toggler-icon"></span> </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html">Főoldal</a></li>
+            <li class="nav-item"><a class="nav-link" href="konyham.html">Konyhám</a></li>
+            <li class="nav-item" id="receptjeimNavItem" style="display: none;"><a class="nav-link" href="receptjeim.html">Receptjeim</a></li>
+            <li class="nav-item" id="adminNavItem" style="display: none;"><a class="nav-link" href="admin.html">Admin</a></li>
+            <li class="nav-item"><a class="nav-link" href="elerhetoseg.html">Elérhetőség</a></li>
+          </ul>
+        <div class="d-flex align-items-center ms-auto">
+          <div class="d-flex align-items-center" style="gap: 8px; position: relative;">
+            <button id="userMenuToggle" class="btn btn-link nav-link p-0 profil-icon-btn" type="button" title="Bejelentkezés/Regisztráció">
+              <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background-color: #ffffff; display: flex; align-items: center; justify-content: center;">
+                <img src="../kepek/profil.png" alt="Profil" class="profil-icon" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            </button>
+            <button id="themeToggle" class="btn btn-link nav-link p-0" type="button" aria-pressed="false" title="Sötét mód váltása">🌙</button>
+            <div id="userMenuDropdown" class="user-menu-dropdown" style="display: none;" onclick="event.stopPropagation();">
+              <div id="userInfoSection" class="dropdown-section" style="display: none;">
+                <h6 class="dropdown-section-title">Profil</h6>
+                <div id="userInfo" class="mb-3">
+                  <p class="mb-1"><strong>Felhasználónév:</strong> <span id="displayUsername"></span></p>
+                  <p class="mb-1"><strong>Email:</strong> <span id="displayEmail"></span></p>
+                </div>
+                <div class="d-grid gap-2">
+                  <a href="receptjeim.html" class="btn btn-primary btn-sm">Receptjeim</a>
+                  <a href="admin.html" id="adminPanelButton" class="btn btn-warning btn-sm" style="display: none;">Admin felület</a>
+                  <button id="logoutBtn" class="btn btn-outline-danger btn-sm">Kijelentkezés</button>
+                </div>
+              </div>
+              
+              <div id="loginSection" class="dropdown-section">
+                <h6 class="dropdown-section-title">Bejelentkezés</h6>
+                <div id="loginErrorMsg" class="alert alert-danger d-none" style="font-size: 0.85rem; padding: 0.5rem;">
+                  Hibás felhasználónév vagy jelszó 
+                </div>
+                <form id="loginFormDropdown">
+                  <div class="mb-2">
+                    <label for="loginUsernameDropdown" class="form-label" style="font-size: 0.9rem;">Felhasználónév:</label>
+                    <input type="text" id="loginUsernameDropdown" class="form-control form-control-sm" required autocomplete="username" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="loginPasswordDropdown" class="form-label" style="font-size: 0.9rem;">Jelszó:</label>
+                    <input type="password" id="loginPasswordDropdown" class="form-control form-control-sm" required autocomplete="current-password" style="pointer-events: auto !important;">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-sm w-100 mb-2">Belépés</button>
+                </form>
+                <div class="text-center">
+                  <a href="#" id="switchToRegisterDropdown" class="btn btn-link btn-sm" style="font-size: 0.85rem; color: black;">Nincs még fiókod? Regisztrálj</a>
+                </div>
+              </div>
+              
+              <div id="registerSection" class="dropdown-section" style="display: none;">
+                <h6 class="dropdown-section-title">Regisztráció</h6>
+                <form id="registerFormDropdown">
+                  <div class="mb-2">
+                    <label for="registerUsernameDropdown" class="form-label" style="font-size: 0.9rem;">Felhasználónév:</label>
+                    <input type="text" id="registerUsernameDropdown" class="form-control form-control-sm" placeholder="Válassz egy felhasználónevet" required autocomplete="username" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="registerEmailDropdown" class="form-label" style="font-size: 0.9rem;">Email cím:</label>
+                    <input type="email" id="registerEmailDropdown" class="form-control form-control-sm" placeholder="Add meg az emailed" required autocomplete="email" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="registerPasswordDropdown" class="form-label" style="font-size: 0.9rem;">Jelszó:</label>
+                    <input type="password" id="registerPasswordDropdown" class="form-control form-control-sm" placeholder="Adj meg egy jelszót" required autocomplete="new-password" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="registerPassword2Dropdown" class="form-label" style="font-size: 0.9rem;">Jelszó újra:</label>
+                    <input type="password" id="registerPassword2Dropdown" class="form-control form-control-sm" placeholder="Írd be újra a jelszót" required autocomplete="new-password" style="pointer-events: auto !important;">
+                  </div>
+                  <div class="mb-2">
+                    <label for="registerProfilKepDropdown" class="form-label" style="font-size: 0.9rem;">Profilkép (opcionális):</label>
+                    <input type="file" id="registerProfilKepDropdown" class="form-control form-control-sm" accept="image/*" style="pointer-events: auto !important;">
+                    <small class="text-muted" style="font-size: 0.75rem;">JPG, PNG vagy WEBP, max. 500 KB</small>
+                  </div>
+                  <button type="submit" class="btn btn-success btn-sm w-100 mb-2">Regisztráció</button>
+                </form>
+                <div class="text-center">
+                  <a href="#" id="switchToLoginDropdown" class="btn btn-link btn-sm" style="font-size: 0.85rem; color: black;">Már van fiókod? Jelentkezz be</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </nav>
+  <header class="hero p-5 text-center text-black">
+    <div class="container">
+      <h1>Ötletes receptek</h1>
+      <p class="lead">Friss ötletek minden napszakra — töltsd ki a kérdőívet, hogy személyre szabjuk a javaslatokat.</p>
+      <div class="hero-cta mt-3"> <button id="openSurveyBtn" class="btn btn-cta" data-bs-toggle="modal"
+          data-bs-target="#surveyModal">Töltsd ki a kérdőívet</button> </div>
+    </div>
+    <svg class="hero-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,40 C200,80 300,0 720,40 C1140,80 1240,0 1440,40 L1440 80 L0 80 Z" fill="rgba(255,255,255,0.25)">
+      </path>
+    </svg>
+  </header>
+  <main class="container my-4">
+    
+    <div id="resultMsg" class="alert alert-info shadow-sm" style="display:none;" role="status" aria-live="polite"></div>
+    <section class="row g-4" id="recipeGrid"></section>
+
+<div class="modal fade" id="recipeModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="recipeModalTitle">Recept</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Bezárás"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="recipe-modal-img-wrapper">
+          <img id="recipeModalImg" class="recipe-modal-img img-fluid d-none" alt="">
+        </div>
+        <div id="recipeModalMeta" class="recipe-modal-meta mb-3"></div>
+
+        <div class="mb-3">
+          <label for="servesInput" class="form-label"><strong>Hány főre főzöl?</strong></label>
+          <input type="number" id="servesInput" class="form-control" min="1" max="20" value="4" style="max-width: 150px;">
+        </div>
+
+        <div class="row g-3">
+          <div class="col-12 col-lg-5">
+            <h6 class="mb-2">Hozzávalók</h6>
+            <ul id="recipeModalIngredients" class="list-group list-group-flush"></ul>
+          </div>
+
+          <div class="col-12 col-lg-7">
+            <h6 class="mb-2">Elkészítés</h6>
+            <ol id="recipeModalSteps" class="list-group list-group-numbered"></ol>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+  </main>
+  <div class="modal fade" id="surveyModal" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-3">
+        <div class="modal-header border-0">
+          <h2 class="modal-title">Kedves látogató!</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Bezárás"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted">Ez a rövid kérdőív segít, hogy személyre szabott receptjavaslatokat mutassunk.</p>
+          <form id="surveyForm">
+            <div class="row g-2">
+              <div class="col-12 col-md-6">
+                <label for="time" class="form-label">Mennyi időd van főzni? (perc)</label>
+                <input id="time" type="number" class="form-control form-control-lg" min="1" value="20">
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="serves" class="form-label">Hány főre?</label>
+                <input id="serves" type="number" class="form-control form-control-lg" min="1" value="1">
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <label class="form-label">Érzékenység / allergia</label>
+              <div id="allergies" class="d-flex flex-wrap gap-2 mt-2">
+                <label class="chip"><input type="checkbox" value="gluten"><span>Glutén</span></label>
+                <label class="chip"><input type="checkbox" value="tej"><span>Tej/laktóz</span></label>
+                <label class="chip"><input type="checkbox" value="nuts"><span>Diófélék</span></label>
+                <label class="chip"><input type="checkbox" value="egg"><span>Tojás</span></label>
+                <label class="chip"><input type="checkbox" value="none"><span>Nincs érzékenység</span></label>
+                
+              </div>
+            </div>
+
+
+            <div class="mt-3">
+              <label for="meal" class="form-label">Mit szeretnél főzni?</label>
+              <select id="meal" class="form-select form-select-lg">
+                <option value="reggeli">Reggeli</option>
+                <option value="10órai">Tízórai</option>
+                <option value="foetel">Főétel</option>
+                <option value="uzsonna">Uzsonna</option>
+                <option value="vacsora">Vacsora</option>
+                <option value="desszert">Desszert</option>
+                <option value="kalóriaszegény">Kalóriaszegény</option>
+                <option value="proteindús">Fehérjedús</option>
+              </select>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <button type="button" class="btn btn-outline-secondary" id="skipBtn">Kihagyom</button>
+              <button type="submit" class="btn btn-primary btn-lg">Mutasd a javaslatokat</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center p-3 bg-light">
+    © 2026 MitFőzzekMa
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/userMenu.js"></script>
+  <script src="../js/script.js"></script>
+
+  <button id="backToTop" class="btn btn-primary" style="position: fixed; bottom: 20px; right: 20px; display: none; z-index: 1000;color: darkgreen;">
+    ⬆️
+  </button>
+
+  <script>
+    const backToTopButton = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 200) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+
+    backToTopButton.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elérhetőség - MitFőzzekMa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <nav class="navbar navbar-expand-md" style="background-color: #004d00; padding: 0.5rem 1rem;">
+            <div class="container-fluid"> <a class="navbar-brand" href="#">
+                  <div style="width: 150%; height: 45px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f0e5c9;">
+                    <img src="../kepek/logó.webp" alt="Mit Főzzek Ma logó" style="width: 100%; height: 100%; object-fit: contain;">
+                  </div>
+                </a> <button class="navbar-toggler"
+                type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"> <span
+                  class="navbar-toggler-icon"></span> </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Főoldal</a></li>
+                    <li class="nav-item"><a class="nav-link" href="konyham.html">Konyhám</a></li>
+                    <li class="nav-item" id="receptjeimNavItem" style="display: none;"><a class="nav-link" href="receptjeim.html">Receptjeim</a></li>
+                    <li class="nav-item" id="adminNavItem" style="display: none;"><a class="nav-link" href="admin.html">Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" href="elerhetoseg.html">Elérhetőség</a></li>
+                  </ul>
+                <div class="d-flex align-items-center ms-auto">
+                  <div class="d-flex align-items-center" style="gap: 8px; position: relative;">
+                    <button id="userMenuToggle" class="btn btn-link nav-link p-0 profil-icon-btn" type="button" title="Bejelentkezés/Regisztráció">
+                      <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background-color: #ffffff; display: flex; align-items: center; justify-content: center;">
+                        <img src="../kepek/profil.png" alt="Profil" class="profil-icon" style="width: 100%; height: 100%; object-fit: cover;">
+                      </div>
+                    </button>
+                    <button id="themeToggle" class="btn btn-link nav-link p-0" type="button" aria-pressed="false" title="Sötét mód váltása">🌙</button>
+                    <div id="userMenuDropdown" class="user-menu-dropdown" style="display: none;" onclick="event.stopPropagation();">
+                      <div id="userInfoSection" class="dropdown-section" style="display: none;">
+                        <h6 class="dropdown-section-title">Profil</h6>
+                        <div id="userInfo" class="mb-3">
+                          <p class="mb-1"><strong>Felhasználónév:</strong> <span id="displayUsername"></span></p>
+                          <p class="mb-1"><strong>Email:</strong> <span id="displayEmail"></span></p>
+                        </div>
+                        <div class="d-grid gap-2">
+                          <a href="receptjeim.html" class="btn btn-primary btn-sm">Receptjeim</a>
+                          <a href="admin.html" id="adminPanelButton" class="btn btn-warning btn-sm" style="display: none;">Admin felület</a>
+                          <button id="logoutBtn" class="btn btn-outline-danger btn-sm">Kijelentkezés</button>
+                        </div>
+                      </div>
+                      
+                      <div id="loginSection" class="dropdown-section">
+                        <h6 class="dropdown-section-title">Bejelentkezés</h6>
+                        <div id="loginErrorMsg" class="alert alert-danger d-none" style="font-size: 0.85rem; padding: 0.5rem;">
+                          Hibás felhasználónév vagy jelszó 
+                        </div>
+                        <form id="loginFormDropdown">
+                          <div class="mb-2">
+                            <label for="loginUsernameDropdown" class="form-label" style="font-size: 0.9rem;">Felhasználónév:</label>
+                            <input type="text" id="loginUsernameDropdown" class="form-control form-control-sm" required autocomplete="username" style="pointer-events: auto !important;">
+                          </div>
+                          <div class="mb-2">
+                            <label for="loginPasswordDropdown" class="form-label" style="font-size: 0.9rem;">Jelszó:</label>
+                            <input type="password" id="loginPasswordDropdown" class="form-control form-control-sm" required autocomplete="current-password" style="pointer-events: auto !important;">
+                          </div>
+                          <button type="submit" class="btn btn-primary btn-sm w-100 mb-2">Belépés</button>
+                        </form>
+                        <div class="text-center">
+                          <a href="#" id="switchToRegisterDropdown" class="btn btn-link btn-sm" style="font-size: 0.85rem; color: black;">Nincs még fiókod? Regisztrálj</a>
+                        </div>
+                      </div>
+                      
+                      <div id="registerSection" class="dropdown-section" style="display: none;">
+                        <h6 class="dropdown-section-title">Regisztráció</h6>
+                        <form id="registerFormDropdown">
+                          <div class="mb-2">
+                            <label for="registerUsernameDropdown" class="form-label" style="font-size: 0.9rem;">Felhasználónév:</label>
+                            <input type="text" id="registerUsernameDropdown" class="form-control form-control-sm" placeholder="Válassz egy felhasználónevet" required autocomplete="username" style="pointer-events: auto !important;">
+                          </div>
+                          <div class="mb-2">
+                            <label for="registerEmailDropdown" class="form-label" style="font-size: 0.9rem;">Email cím:</label>
+                            <input type="email" id="registerEmailDropdown" class="form-control form-control-sm" placeholder="Add meg az emailed" required autocomplete="email" style="pointer-events: auto !important;">
+                          </div>
+                          <div class="mb-2">
+                            <label for="registerPasswordDropdown" class="form-label" style="font-size: 0.9rem;">Jelszó:</label>
+                            <input type="password" id="registerPasswordDropdown" class="form-control form-control-sm" placeholder="Adj meg egy jelszót" required autocomplete="new-password" style="pointer-events: auto !important;">
+                          </div>
+                          <div class="mb-2">
+                            <label for="registerPassword2Dropdown" class="form-label" style="font-size: 0.9rem;">Jelszó újra:</label>
+                            <input type="password" id="registerPassword2Dropdown" class="form-control form-control-sm" placeholder="Írd be újra a jelszót" required autocomplete="new-password" style="pointer-events: auto !important;">
+                          </div>
+                          <div class="mb-2">
+                            <label for="registerProfilKepDropdown" class="form-label" style="font-size: 0.9rem;">Profilkép (opcionális):</label>
+                            <input type="file" id="registerProfilKepDropdown" class="form-control form-control-sm" accept="image/*" style="pointer-events: auto !important;">
+                            <small class="text-muted" style="font-size: 0.75rem;">JPG, PNG vagy WEBP, max. 500 KB</small>
+                          </div>
+                          <button type="submit" class="btn btn-success btn-sm w-100 mb-2">Regisztráció</button>
+                        </form>
+                        <div class="text-center">
+                          <a href="#" id="switchToLoginDropdown" class="btn btn-link btn-sm" style="font-size: 0.85rem; color: black;">Már van fiókod? Jelentkezz be</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </nav>
+        <header class="hero p-5 text-center text-black" style="margin-top: 50px;">
+            <div class="container">
+                <h1>Elérhetőség</h1>
+                <p class="lead">Lépj kapcsolatba velünk — töltsd ki az alábbi űrlapot, és hamarosan válaszolunk.</p>
+            </div>
+            <svg class="hero-wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0,40 C200,80 300,0 720,40 C1140,80 1240,0 1440,40 L1440 80 L0 80 Z"
+                    fill="rgba(255,255,255,0.25)">
+                </path>
+            </svg>
+        </header>
+
+        <main class="container my-5">
+            <div class="mb-4">
+                <ul class="list-unstyled">
+                    <li><strong>Email:</strong> <a
+                            href="mailto:https://formspree.io/f/myzdrybo">infomitfozzekma@gmail.com</a>
+                    </li>
+                    <li><strong>Telefon:</strong> +36 30 123 4567</li>
+                </ul>
+            </div>
+            <div class="card shadow-sm contact-card p-4">
+                <h5 class="card-title mb-3 text-start">Írj nekünk üzenetet</h5>
+
+                <form action="https://formspree.io/f/myzdrybo" method="POST" class="contact-form">
+                    <div class="mb-3 text-start">
+                        <label for="name" class="form-label">Név</label>
+                        <input type="text" name="name" class="form-control" id="name" required>
+                    </div>
+
+                    <div class="mb-3 text-start">
+                        <label for="email" class="form-label">Email cím</label>
+                        <input type="email" name="email" class="form-control" id="email" required>
+                    </div>
+
+                    <div class="mb-3 text-start">
+                        <label for="message" class="form-label">Üzenet</label>
+                        <textarea name="message" class="form-control" id="message" rows="4" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-2">Küldés</button>
+                </form>
+            </div>
+    </div>
+    <footer class="text-center p-3 bg-light">
+        © 2026 MitFőzzekMa
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/userMenu.js"></script>
+    <script src="../js/script.js"></script>
+</body>
+
+</html>

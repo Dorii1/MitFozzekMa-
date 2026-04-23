@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f1f1;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #70d473;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+}
+
+main {
+    max-width: 600px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    background: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background: #e7f3e7;
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px;
+    background: #ddd;
+}
+
+/* Updated navbar styles to match the index.html */
+.navbar {
+    background-color: #f8f9fa; /* Light background */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #343a40 !important; /* Dark text */
+}
+
+.nav-link {
+    color: #495057; /* Neutral text color */
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #007bff !important; /* Blue hover effect */
+    font-weight: 500;
+}
+
+.navbar-toggler {
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
