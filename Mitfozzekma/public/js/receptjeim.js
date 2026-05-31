@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function() {
         savedRecipes.push(newRecipe.id);
         localStorage.setItem('savedRecipes_' + currentUser.username, JSON.stringify(savedRecipes));
       }
-      alert(isUpdate ? 'A recept módosítva! 🎉' : 'Sikeresen hozzáadtad a receptet! 🎉 A recept mostantól megjelenik a Főoldalon és az adatbázisban.');
+      alert(isUpdate ? 'A recept módosítva! ' : 'Sikeresen hozzáadtad a receptet!  A recept mostantól megjelenik a Főoldalon és az adatbázisban.');
       cancelEdit();
       setTimeout(function() {
         var el = document.querySelector('.saved-recipes-section');

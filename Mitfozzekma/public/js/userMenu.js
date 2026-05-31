@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(function(result) {
         if (!result.ok || !result.data || !result.data.success) {
           if (loginErrorMsg) {
-            loginErrorMsg.textContent = 'Hibás felhasználónév vagy jelszó ❌';
+            loginErrorMsg.textContent = 'Hibás felhasználónév vagy jelszó';
             loginErrorMsg.classList.remove('d-none');
           }
           return;
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       if (password !== password2) {
-        alert('A jelszavak nem egyeznek 😬');
+        alert('A jelszavak nem egyeznek');
         return;
       }
       
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
           return;
         }
-        alert('Sikeres regisztráció! Most már be tudsz jelentkezni. 🎉');
+        alert('Sikeres regisztráció! Most már be tudsz jelentkezni.');
         registerFormDropdown.reset();
         loginSection.style.display = 'block';
         registerSection.style.display = 'none';

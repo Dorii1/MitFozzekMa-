@@ -10,9 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $headers = "From: $email\r\nReply-To: $email";
 
     if (mail($to, $subject, $body, $headers)) {
-        echo "✅ Köszönjük az üzenetet, hamarosan válaszolunk!";
+        echo "Köszönjük az üzenetet, hamarosan válaszolunk!";
     } else {
-        echo "❌ Hiba történt az üzenet küldése közben.";
+        echo "Hiba történt az üzenet küldése közben.";
     }
 }
 ?>
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     fwrite($file, "----------------------\n");
     fclose($file);
 
-    echo "<h2>✅ A recept elmentve!</h2>";
+    echo "<h2> A recept elmentve!</h2>";
     echo "<a href='upload.php'>Vissza</a>";
 }
 ?>
