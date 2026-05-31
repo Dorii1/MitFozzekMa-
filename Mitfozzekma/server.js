@@ -582,6 +582,7 @@ function initializeDatabase() {
         .then(function() { return conn.execute(RECIPES_TABLE_SQL); })
         .then(function() { return ensureRecipesUserColumn(conn); })
         .then(function() { return ensureRecipesKaloriaColumn(conn); })
+        .then(function() { return ensureRecipesKepekMediumText(conn); })
         .then(function() { return ensureUserProfilKepColumn(conn); })
         .then(function() { return ensureUserProfilKepMediumText(conn); })
         .then(function() { return ensureUserKedveltReceptekColumn(conn); })

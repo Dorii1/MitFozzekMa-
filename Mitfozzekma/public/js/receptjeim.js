@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Rendereljük a kedvelt recepteket
-        renderRecipes(favoriteFromApi, grid);
+        renderRecipes(favoriteFromApi, grid, 'favorite');
       })
       .catch(function(error) {
         console.error('hiba:', error);
@@ -597,26 +597,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Rendereljük a recepteket
-        renderRecipes(allRecipesToShow, grid);
+        renderRecipes(allRecipesToShow, grid, 'saved');
       })
       .catch(function(error) {
         console.error('hiba:', error);
         // Ha csak a saját receptek vannak, azokat mutassuk
         if (userRecipes.length > 0) {
-          renderRecipes(userRecipes, grid);
+          renderRecipes(userRecipes, grid, 'saved');
         } else {
           grid.innerHTML = '<div class="col-12"><div class="empty-state"><p class="text-danger">Hiba történt a receptek betöltésekor.</p></div></div>';
         }
       });
   }
   
-  function renderRecipes(recipes, grid) {
+  function renderRecipes(recipes, grid, source) {
     function slugify(s) {
       return String(s).toLowerCase().replace(/[^a-z0-9 -]+/g, '-').replace(/--+/g, '-').replace(/(^-|-$)/g, '');
     }
     
     for (var i = 0; i < recipes.length; i++) {
-      var r = recipes[i];
+      (function(r) {
       var col = document.createElement('div');
       col.className = 'col-md-4';
       
@@ -659,8 +659,15 @@ document.addEventListener('DOMContentLoaded', function() {
       delBtn.title = 'Recept törlése';
       delBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        if (confirm('Biztosan törölni szeretnéd ezt a receptet?')) {
-          removeSavedRecipe(r.id || r.title);
+        var confirmMsg = source === 'favorite'
+          ? 'Biztosan eltávolítod ezt a receptet a kedveltek közül?'
+          : 'Biztosan törölni szeretnéd ezt a receptet?';
+        if (confirm(confirmMsg)) {
+          if (source === 'favorite') {
+            removeFavoriteRecipe(r.id || r.title);
+          } else {
+            removeSavedRecipe(r.id || r.title);
+          }
         }
       });
       btnWrap.appendChild(delBtn);
@@ -722,7 +729,18 @@ document.addEventListener('DOMContentLoaded', function() {
       card.appendChild(body);
       col.appendChild(card);
       grid.appendChild(col);
+      })(recipes[i]);
     }
+  }
+  
+  function removeFavoriteRecipe(recipeId) {
+    var favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes_' + currentUser.username)) || [];
+    var idStr = String(recipeId);
+    favoriteRecipes = favoriteRecipes.filter(function(id) {
+      return String(id) !== idStr;
+    });
+    localStorage.setItem('favoriteRecipes_' + currentUser.username, JSON.stringify(favoriteRecipes));
+    loadFavoriteRecipes();
   }
   
   function removeSavedRecipe(recipeId) {
