@@ -1,22 +1,17 @@
-// Receptjeim oldal funkcionalitás
 document.addEventListener('DOMContentLoaded', function() {
-  // Ellenőrizzük, hogy be van-e jelentkezve
   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
   
   if (!currentUser) {
-    // Ha nincs bejelentkezve, irányítsuk át a főoldalra
     alert('Kérjük, jelentkezz be a Receptjeim oldal megtekintéséhez!');
     window.location.href = 'index.html';
     return;
   }
   
-  // Felhasználó információk megjelenítése (a userMenu.js is kezeli, de gyors betöltéshez itt is)
   var displayUsername = document.getElementById('displayUsername');
   var displayEmail = document.getElementById('displayEmail');
   if (displayUsername) displayUsername.textContent = currentUser.username;
   if (displayEmail) displayEmail.textContent = currentUser.email;
   
-  // Új recept form kezelése
   var newRecipeForm = document.getElementById('newRecipeForm');
   var INGREDIENT_UNITS = [
     { value: '', label: 'Mértékegység' },
@@ -118,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
     addStepItem('');
   }
   
-  // Kép előnézet
   var recipeImage = document.getElementById('recipeImage');
   var recipeImageUrl = document.getElementById('recipeImageUrl');
   var imagePreview = document.getElementById('imagePreview');
@@ -202,7 +196,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // Új recept form submit
   if (newRecipeForm) {
     newRecipeForm.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -412,7 +405,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       alert(isUpdate ? 'A recept módosítva! 🎉' : 'Sikeresen hozzáadtad a receptet! 🎉 A recept mostantól megjelenik a Főoldalon és az adatbázisban.');
       cancelEdit();
-      loadSavedRecipes();
       setTimeout(function() {
         var el = document.querySelector('.saved-recipes-section');
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -499,10 +491,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Kedvelt receptek betöltése
+  loadSavedRecipes._reqId = 0;
+  loadFavoriteRecipes._reqId = 0;
+
   loadFavoriteRecipes();
   
-  // Mentett receptek betöltése
   loadSavedRecipes();
   
   function loadFavoriteRecipes() {
@@ -515,32 +508,30 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!grid) return;
     
-    grid.innerHTML = '';
-    
     if (favoriteRecipes.length === 0) {
       grid.innerHTML = '<div class="col-12"><div class="empty-state"><p>Még nincs kedvelt recepted. Böngészd az <a href="index.html">összes receptet</a> és kattints a szív ikonra, hogy kedvelve jelöld meg!</p></div></div>';
       return;
     }
     
-    // Betöltjük az API-ból a kedvelt recepteket
+    var reqId = ++loadFavoriteRecipes._reqId;
     fetch('/api/recipes')
       .then(function(response) {
         if (!response.ok) throw new Error('hiba');
         return response.json();
       })
       .then(function(allRecipes) {
-        // Szűrjük a kedvelt recepteket
+        if (reqId !== loadFavoriteRecipes._reqId) return; 
         var favoriteFromApi = allRecipes.filter(function(recipe) {
           var recipeId = recipe.id || slugify(recipe.title || '');
           return favoriteRecipes.indexOf(recipeId) !== -1 || favoriteRecipes.indexOf(recipe.title) !== -1;
         });
         
+        grid.innerHTML = '';
         if (favoriteFromApi.length === 0) {
           grid.innerHTML = '<div class="col-12"><div class="empty-state"><p>Még nincs kedvelt recepted. Böngészd az <a href="index.html">összes receptet</a> és kattints a szív ikonra, hogy kedvelve jelöld meg!</p></div></div>';
           return;
         }
-        
-        // Rendereljük a kedvelt recepteket
+      
         renderRecipes(favoriteFromApi, grid, 'favorite');
       })
       .catch(function(error) {
@@ -556,32 +547,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (!grid) return;
     
-    grid.innerHTML = '';
-    
-    // Összegyűjtjük az összes receptet
     var allRecipesToShow = [];
     
-    // Először a felhasználó saját receptjei
     allRecipesToShow = allRecipesToShow.concat(userRecipes);
     
-    // Majd betöltjük az API-ból a mentett recepteket
+    var reqId = ++loadSavedRecipes._reqId;
+
     fetch('/api/recipes')
       .then(function(response) {
         if (!response.ok) throw new Error('hiba');
         return response.json();
       })
       .then(function(allRecipes) {
-        // Szűrjük a mentett recepteket (amelyeket nem a felhasználó hozott létre)
+        if (reqId !== loadSavedRecipes._reqId) return; 
+
         var currentUserId = currentUser.id ? String(currentUser.id) : '';
         var savedFromApi = allRecipes.filter(function(recipe) {
           var isInSaved = savedRecipes.indexOf(recipe.id) !== -1 || savedRecipes.indexOf('db_' + recipe.id) !== -1 || savedRecipes.indexOf(recipe.title) !== -1;
           var isOwnRecipe = recipe.userId != null && (String(recipe.userId) === currentUserId || String(recipe.userId) === currentUser.username);
-          return isInSaved && !isOwnRecipe; // saját receptek userRecipes-ból jönnek, ne duplikálódjanak
+          return isInSaved && !isOwnRecipe; 
         });
         
         allRecipesToShow = allRecipesToShow.concat(savedFromApi);
         
-        // Deduplikáció – ugyanaz a recept (cím+idő+meal) ne jelenjen meg kétszer
         var seenByContent = {};
         allRecipesToShow = allRecipesToShow.filter(function(r) {
           var contentKey = ((r.title || '') + '|' + (r.time || '') + '|' + (r.meal || '')).toLowerCase();
@@ -591,17 +579,18 @@ document.addEventListener('DOMContentLoaded', function() {
           return true;
         });
         
+        grid.innerHTML = '';
         if (allRecipesToShow.length === 0) {
           grid.innerHTML = '<div class="col-12"><div class="empty-state"><p>Még nincs mentett recepted. Böngészd az <a href="index.html">összes receptet</a> és mentsd el a kedvenceidet, vagy add hozzá az első saját receptedet!</p></div></div>';
           return;
         }
-        
-        // Rendereljük a recepteket
+  
         renderRecipes(allRecipesToShow, grid, 'saved');
       })
       .catch(function(error) {
+        if (reqId !== loadSavedRecipes._reqId) return; 
         console.error('hiba:', error);
-        // Ha csak a saját receptek vannak, azokat mutassuk
+        grid.innerHTML = '';
         if (userRecipes.length > 0) {
           renderRecipes(userRecipes, grid, 'saved');
         } else {

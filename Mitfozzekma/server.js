@@ -56,7 +56,7 @@ const RECIPES_TABLE_SQL =
   "PRIMARY KEY (`idreceptek`)" +
   ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 
-// Egyszerűsített tábla inicializálás csak induláskor
+
 async function initTables() {
   const conn = await mysql.createConnection(dbConfig);
   await conn.execute(`CREATE TABLE IF NOT EXISTS felhasznalo (
@@ -95,7 +95,6 @@ async function initTables() {
   await conn.end();
 }
 
-//Segédfüggvények adatbázishoz
 function ensureUserTable(conn) {   
   return conn.execute(USER_TABLE_SQL);   
 }
@@ -108,23 +107,23 @@ function ensureRecipesUserColumn(conn) {
       );
     })
     .then(function(r) {
-      if (r[0][0].c === 0) {   // ha 0, nincs ilyen oszlop
+      if (r[0][0].c === 0) {  
         return conn.execute("ALTER TABLE `receptek` ADD COLUMN `felhasznalo_id` INT(11) DEFAULT NULL");
       }
     });
 }
 
-function ensureRecipesKaloriaColumn(conn) {   // kaloria oszlop hozzáadása ha hiányzik
-  return conn.execute(   // megnézi, van-e kaloria oszlop
+function ensureRecipesKaloriaColumn(conn) {   
+  return conn.execute(  
     "SELECT COUNT(*) AS c FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'receptek' AND COLUMN_NAME = 'kaloria'"
   ).then(function(r) {
-    if (r[0][0].c === 0) {   // ha nincs, hozzáadja
+    if (r[0][0].c === 0) {   
       return conn.execute("ALTER TABLE `receptek` ADD COLUMN `kaloria` VARCHAR(20) DEFAULT NULL");
     }
   });
 }
 
-function ensureUserProfilKepColumn(conn) {   // profil_kep oszlop hozzáadása ha hiányzik
+function ensureUserProfilKepColumn(conn) {  
   return conn.execute(
     "SELECT COUNT(*) AS c FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'felhasznalo' AND COLUMN_NAME = 'profil_kep'"
   ).then(function(r) {
@@ -134,7 +133,7 @@ function ensureUserProfilKepColumn(conn) {   // profil_kep oszlop hozzáadása h
   });
 }
 
-function ensureUserProfilKepMediumText(conn) {   // profil_kep MEDIUMTEXT (base64 képekhez, ne csonkoljon)
+function ensureUserProfilKepMediumText(conn) {  
   return conn.execute(
     "SELECT DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'felhasznalo' AND COLUMN_NAME = 'profil_kep'"
   ).then(function(r) {
@@ -144,7 +143,7 @@ function ensureUserProfilKepMediumText(conn) {   // profil_kep MEDIUMTEXT (base6
   }).catch(function() { return; });
 }
 
-function ensureUserKedveltReceptekColumn(conn) {   // kedvelt_receptek oszlop hozzáadása ha hiányzik
+function ensureUserKedveltReceptekColumn(conn) {  
   return conn.execute(
     "SELECT COUNT(*) AS c FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'felhasznalo' AND COLUMN_NAME = 'kedvelt_receptek'"
   ).then(function(r) {
@@ -154,7 +153,7 @@ function ensureUserKedveltReceptekColumn(conn) {   // kedvelt_receptek oszlop ho
   });
 }
 
-function ensureRecipesKepekMediumText(conn) {   // kepek oszlop MEDIUMTEXT (base64 képekhez)
+function ensureRecipesKepekMediumText(conn) {   
   return conn.execute(
     "SELECT DATA_TYPE, CHARACTER_MAXIMUM_LENGTH FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'receptek' AND COLUMN_NAME = 'kepek'"
   ).then(function(r) {
@@ -164,13 +163,11 @@ function ensureRecipesKepekMediumText(conn) {   // kepek oszlop MEDIUMTEXT (base
   }).catch(function() { return; });
 }
 
-//Middleware-ek (mindennapos kérésfeldolgozás)
-app.use(express.json({ limit: '2mb' }));
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 
-// Egyszerűsített jelszókezelés és utilityk
 const hashPassword = pw => {
   const salt = crypto.randomBytes(16).toString("hex");
   const hash = crypto.scryptSync(pw, salt, 64).toString("hex");
@@ -203,7 +200,6 @@ const toClientUserPayload = user => {
   };
 };
 
-//Adatbázis sor átalakítása kliensnek megfelelő recept objektummá
 function dbRowToRecipe(row) {
   var recept = row.recept_hozzaadas || "";
   var firstLineEnd = recept.indexOf("\n\n");
@@ -225,7 +221,6 @@ function dbRowToRecipe(row) {
   };
 }
 
-//API végpontok
 
 app.get("/api/recipes", (req, res) => {
   mysql.createConnection(dbConfig)
@@ -242,7 +237,7 @@ app.get("/api/recipes", (req, res) => {
     });
 });
 
-app.post("/api/recipes", function(req, res) {   // új recept, POST /api/recipes (bejelentkezés kell)
+app.post("/api/recipes", function(req, res) {   
   const userId = req.headers["x-auth-user"];
   const token = req.headers["x-auth-token"];
   if (!userId || !token) return res.status(401).json({ success: false, error: "login_required" });
@@ -266,7 +261,7 @@ app.post("/api/recipes", function(req, res) {   // új recept, POST /api/recipes
         const receptHozzaadas = (title ? title + "\n\n" : "") + steps;
         return conn.execute(
           "INSERT INTO receptek (hozzavalo, ido, meal, kulonlegesseg, kepek, recept_hozzaadas, allergens, felhasznalo_id, kaloria) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-          [ingredients, String(time), meal, type, (imageUrl && imageUrl.length > 0 && imageUrl.length <= 2097152) ? imageUrl : (imageUrl && imageUrl.length <= 500 ? imageUrl : ""), receptHozzaadas, body.allergens || "none", userId, kaloria]
+          [ingredients, String(time), meal, type, (imageUrl && imageUrl.length <= 8388608) ? imageUrl : "", receptHozzaadas, body.allergens || "none", userId, kaloria]
         ).then(insertResult => {
           conn.end();
           res.json({ success: true, id: insertResult[0].insertId });
@@ -314,7 +309,7 @@ app.put("/api/recipes/:id", function(req, res) {
             const receptHozzaadas = (title ? title + "\n\n" : "") + steps;
             return conn.execute(
               "UPDATE receptek SET hozzavalo=?, ido=?, meal=?, kulonlegesseg=?, kepek=?, recept_hozzaadas=?, allergens=?, kaloria=? WHERE idreceptek=? AND felhasznalo_id=?",
-              [ingredients, String(time), meal, type, (imageUrl && imageUrl.length > 0 && imageUrl.length <= 2097152) ? imageUrl : (imageUrl && imageUrl.length <= 500 ? imageUrl : ""), receptHozzaadas, body.allergens || "none", kaloria, recipeId, userId]
+              [ingredients, String(time), meal, type, (imageUrl && imageUrl.length <= 8388608) ? imageUrl : "", receptHozzaadas, body.allergens || "none", kaloria, recipeId, userId]
             ).then(() => { conn.end(); });
           });
       })
